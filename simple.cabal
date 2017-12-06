@@ -19,8 +19,15 @@ description:         Please see the README on Github at <https://github.com/gith
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib, Day1
+  exposed-modules:     Lib
+                     , Day1
+                     , Day2
+                     , Day3
+                     , Day4
+                     , Day5
+                     , Day6
   build-depends:       base >= 4.7 && < 5
+                     , Unique
   default-language:    Haskell2010
 
 executable simple-exe
@@ -36,6 +43,11 @@ test-suite simple-test
   hs-source-dirs:      test
   main-is:             Spec.hs
   other-modules:       Day1Spec
+                     , Day2Spec
+                     , Day3Spec
+                     , Day4Spec
+                     , Day5Spec
+                     , Day6Spec
   build-depends:       base
                      , simple
                      , hspec
