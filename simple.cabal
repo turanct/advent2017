@@ -26,6 +26,7 @@ library
                      , Day4
                      , Day5
                      , Day6
+                     , Day7
   build-depends:       base >= 4.7 && < 5
                      , Unique
   default-language:    Haskell2010
@@ -48,6 +49,7 @@ test-suite simple-test
                      , Day4Spec
                      , Day5Spec
                      , Day6Spec
+                     , Day7Spec
   build-depends:       base
                      , simple
                      , hspec
