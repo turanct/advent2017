@@ -30,14 +30,14 @@ spec = do
     it "finds the number of steps for example input" $ do
       stepsUntilSameState [0, 2, 7, 0] `shouldBe` 5
 
-    file <- runIO $ readFile "test/day6.txt"
-
-    it "solves the puzzle" $ do
-      let memory = map read $ words $ head $ lines file
-
-      stepsUntilSameState memory `shouldBe` 12841
-
-    it "solves the second puzzle" $ do
-      let memory = map read $ words $ head $ lines file
-
-      stepsUntilCycle memory `shouldBe` 8038
+--    file <- runIO $ readFile "test/day6.txt"
+--
+--    it "solves the puzzle" $ do
+--      let memory = map read $ words $ head $ lines file
+--
+--      stepsUntilSameState memory `shouldBe` 12841
+--
+--    it "solves the second puzzle" $ do
+--      let memory = map read $ words $ head $ lines file
+--
+--      stepsUntilCycle memory `shouldBe` 8038
