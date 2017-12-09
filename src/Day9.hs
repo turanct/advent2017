@@ -36,7 +36,7 @@ parseString = parse subsequenceParser ""
 score :: Sequence -> Int
 score = score' 1
   where score' s (Garbage _) = 0
-        score' s (Group subgroups) = s + sum [ score' (s + 1) sg | sg <- subgroups ]
+        score' s (Group subgroups) = s + sum (map (score' (s + 1)) subgroups)
 
 countGarbage :: Sequence -> Int
 countGarbage (Garbage s) = length s
