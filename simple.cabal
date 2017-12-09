@@ -28,9 +28,11 @@ library
                      , Day6
                      , Day7
                      , Day8
+                     , Day9
   build-depends:       base >= 4.7 && < 5
                      , Unique
                      , containers
+                     , parsec
   default-language:    Haskell2010
 
 executable simple-exe
@@ -53,6 +55,7 @@ test-suite simple-test
                      , Day6Spec
                      , Day7Spec
                      , Day8Spec
+                     , Day9Spec
   build-depends:       base
                      , simple
                      , hspec
