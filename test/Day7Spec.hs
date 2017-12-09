@@ -85,5 +85,5 @@ spec = do
       let programs = map readProgram $ lines file
       let unbalanced = filter (\(Program n _ _ ) -> not $ balanced programs n) programs
       let childrenWeight = map (weight programs) ["izdhn","yzhvrx","eionkb","eadvs","jkkqxfr"]
-      childrenWeight `shouldBe` []
+      childrenWeight `shouldBe` [1777,1777,1784,1777,1777]
       -- i cheated a bit here because i got fed up. with the above i could manually calculate
