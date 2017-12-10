@@ -29,6 +29,7 @@ library
                      , Day7
                      , Day8
                      , Day9
+                     , Day10
   build-depends:       base >= 4.7 && < 5
                      , Unique
                      , containers
@@ -56,6 +57,7 @@ test-suite simple-test
                      , Day7Spec
                      , Day8Spec
                      , Day9Spec
+                     , Day10Spec
   build-depends:       base
                      , simple
                      , hspec
