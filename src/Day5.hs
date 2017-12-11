@@ -30,6 +30,6 @@ jump f (Jumping p is) = nextState
         newInstructions = take (p - 1) is ++ (f instructionAtP) : drop p is
 
 countJumps :: (State -> State) -> State -> Int
-countJumps jumpf state = countJumps' 0 state
+countJumps jumpf = countJumps' 0
   where countJumps' count Escaped = count
         countJumps' count state = countJumps' (count + 1) (jumpf state)

@@ -21,7 +21,7 @@ childOf (Program name _ _) (Program _ _ children) = name `elem` children
 
 topProgram :: [Program] -> Program
 topProgram = head . topPrograms
-  where topPrograms ps = [p | p <- ps, all (\x -> p `childOf` x == False) ps]
+  where topPrograms ps = [p | p <- ps, all (\x -> not $ p `childOf` x) ps]
 
 programByName :: [Program] -> Name -> Program
 programByName ps n = head $ filter (\(Program name _ _) -> name == n) ps
@@ -37,4 +37,4 @@ balanced :: [Program] -> Name -> Bool
 balanced ps p = balanced' $ programByName ps p
   where balanced' (Program _ _ []) = True
         balanced' (Program _ _ c) = allthesame $ map (weight ps) c
-        allthesame xs = and $ map (== head xs) (tail xs)
+        allthesame xs = all (== head xs) (tail xs)

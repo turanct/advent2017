@@ -29,27 +29,27 @@ readInstruction :: String -> Instruction
 readInstruction a = Instruction r m c
   where parts = words a
         r = head parts
-        m = case (head $ drop 1 parts) of "inc" -> Increase amount
-                                          _ -> Decrease amount
-        amount = read $ head $ drop 2 parts
+        m = case parts !! 1 of "inc" -> Increase amount
+                               _ -> Decrease amount
+        amount = read $ parts !! 2
         c = Condition reg comp int
-        reg = head $ drop 4 parts
-        comp = case (head $ drop 5 parts) of "==" -> Equals
-                                             "!=" -> NotEquals
-                                             ">=" -> MoreThanOrEquals
-                                             "<=" -> LessThanOrEquals
-                                             ">" -> MoreThan
-                                             _ -> LessThan
-        int = read $ head $ drop 6 parts
+        reg = parts !! 4
+        comp = case parts !! 5 of "==" -> Equals
+                                  "!=" -> NotEquals
+                                  ">=" -> MoreThanOrEquals
+                                  "<=" -> LessThanOrEquals
+                                  ">" -> MoreThan
+                                  _ -> LessThan
+        int = read $ parts !! 6
 
 initialState :: [Instruction] -> Memory
-initialState is = Map.fromList $ [(r, 0) | r <- allregisters]
+initialState is = Map.fromList [(r, 0) | r <- allregisters]
   where allregisters = sort $ nub $ ireg ++ creg
         ireg = map register is
         creg = map ((\(Condition cr _ _) -> cr) . condition) is
 
 conditionIsMet :: Memory -> Condition -> Bool
-conditionIsMet m (Condition r c i) = case (Map.lookup r m)
+conditionIsMet m (Condition r c i) = case Map.lookup r m
                                      of Nothing -> False
                                         Just registervalue -> comparison registervalue c i
 
@@ -63,7 +63,7 @@ comparison r c i
   | c == LessThan = r < i
 
 modifyRegister :: Memory -> Register -> Modification -> Memory
-modifyRegister mem reg mod = case (Map.lookup reg mem)
+modifyRegister mem reg mod = case Map.lookup reg mem
                              of Nothing -> mem
                                 Just registervalue -> Map.insert reg (runModification mod registervalue) mem
 
@@ -83,7 +83,7 @@ solution1 :: [Instruction] -> Int
 solution1 is = Map.foldl max 0 (runInstructions1 is)
 
 runInstructions2 :: [Instruction] -> (Int, Memory)
-runInstructions2 is = foldl runHighestValue (0, (initialState is)) is
+runInstructions2 is = foldl runHighestValue (0, initialState is) is
   where runHighestValue s instruction = (highest, newmemory)
           where highest = max (fst s) (Map.foldl max 0 newmemory)
                 newmemory = runInstruction (snd s) instruction
