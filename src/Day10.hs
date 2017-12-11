@@ -18,29 +18,29 @@ knot :: State -> Length -> State
 knot s l = State { circle = newcircle, position = newposition, skipSize = newskipsize}
   where newcircle = take clength $ drop remainingLength $ cycle $ reversed ++ rest
         clength = length (circle s)
-        remainingLength = clength - (position s)
+        remainingLength = clength - position s
         reversed = reverse $ take l $ drop (position s) $ cycle (circle s)
-        rest = take (clength - l) $ drop ((position s) + l) $ cycle (circle s)
-        newposition = ((position s) + l + (skipSize s)) `mod` clength
-        newskipsize = (skipSize s) + 1
+        rest = take (clength - l) $ drop (position s + l) $ cycle (circle s)
+        newposition = (position s + l + skipSize s) `mod` clength
+        newskipsize = skipSize s + 1
 
 checksum :: State -> Int
-checksum s = foldl (*) 1 $ take 2 $ circle s
+checksum s = product $ take 2 $ circle s
 
 lengthsFromString :: String -> [Int]
 lengthsFromString s = concat $ replicate 64 ascii
   where ascii = stringToAsciiList s ++ [17, 31, 73, 47, 23]
-        stringToAsciiList = map (ord)
+        stringToAsciiList = map ord
 
 sparseHashToDenseHash :: [Int] -> [Int]
 sparseHashToDenseHash xs = map (foldl xor 0) $ groupBy16 xs
   where groupBy16 [] = []
         groupBy16 xs
-          | length xs < 16 = xs : []
-          | otherwise = take 16 xs : (groupBy16 $ drop 16 xs)
+          | length xs < 16 =  [xs]
+          | otherwise = take 16 xs : groupBy16 (drop 16 xs)
 
 asHex :: [Int] -> String
-asHex is = concat $ map (pad . intToHex) is
+asHex = concatMap (pad . intToHex)
   where intToHex i = showHex i ""
         pad [a] = ['0', a]
         pad s = s
