@@ -70,3 +70,6 @@ filterDoubleSteps = filterOpposites . simplifyLeftTriangles . simplifyRightTrian
 
 part1 :: String -> Int
 part1 = length . filterDoubleSteps . directionsFromString
+
+part2 :: String -> Int
+part2 s = maximum $ map (length . filterDoubleSteps) $ tails $ reverse $ directionsFromString s

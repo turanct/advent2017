@@ -87,3 +87,9 @@ spec = do
 
     it "solves the puzzle" $ do
       part1 file `shouldBe` 812
+
+--  describe "part 2" $ do
+--    file <- runIO $ readFile "test/day11.txt"
+--
+--    it "solves the puzzle" $ do
+--      part2 file `shouldBe` 1603
